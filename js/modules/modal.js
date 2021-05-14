@@ -1,4 +1,3 @@
-
 function closeModal (modalSelector) {
     const  modal = document.querySelector(modalSelector);
 
@@ -12,30 +11,26 @@ function openModal (modalSelector, modalTimerId) {
 
     modal.classList.add('show');
     modal.classList.remove('hide');
-    document.body.style.overflow = 'hidden'; //отменяет скрол страницы пока модальное окно открыто
-    // clearInterval(modalTimerId); //если пользователь сам открывает мод_окно оно само по таймАуту не вылазит 
+    document.body.style.overflow = 'hidden'; 
+   
    console.log(modalTimerId);
     if (modalTimerId){
         clearInterval(modalTimerId); 
     }
 }    
 
-
 function modal(triggerSelector, modalSelector, modalTimerId){
 
-    const modalTrigger = document.querySelectorAll(triggerSelector),  // ('[data-modal]') атрибут 
+    const modalTrigger = document.querySelectorAll(triggerSelector),  
         modal = document.querySelector(modalSelector);
-            // modalCloseBtn = document.querySelector('[data-close]');
 
         modalTrigger.forEach (btn => {
             btn.addEventListener('click', () => openModal(modalSelector, modalTimerId));
          });
-
-        // modalCloseBtn.addEventListener('click', closeModal); // не вызываем а передаем 
            
-        modal.addEventListener('click', (e) =>{   //закрываем модальное окно по клику на подложку 
+        modal.addEventListener('click', (e) =>{   
             if (e.target === modal|| e.target.getAttribute('data-close') == "") {
-                closeModal(modalSelector);                    //вызываем 
+                closeModal(modalSelector);                  
             }
         });
 
@@ -45,7 +40,7 @@ function modal(triggerSelector, modalSelector, modalTimerId){
         }
     });
 
-    function showModalByScroll (){  //вызываем м_окно когда доскролили до низа  страницы 
+    function showModalByScroll (){  
         if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
             openModal(modalSelector, modalTimerId);
             window.removeEventListener('scroll', showModalByScroll);
